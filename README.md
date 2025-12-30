@@ -36,6 +36,6 @@ cp -r claude-code-skills-main/book-survey ~/.claude/skills/
 
 ## ライセンス
 
-MIT License - 詳細は[LICENSE](LICENSE)を参照してください。
+CC0 1.0 Universal - 詳細は[LICENSE](LICENSE)を参照してください。
 
-Copyright (c) 2025 [taktamur](https://github.com/taktamur)
+このプロジェクトはパブリックドメインです。自由に使用、改変、配布できます。
