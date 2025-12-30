@@ -6,6 +6,7 @@
 
 | スキル名 | 説明 |
 |---------|------|
+| [agent-skill-survey](agent-skill-survey/) | Agent Skillsの活用事例を調査・収集し、使用パターンを分析。Zenn、GitHub、技術ブログなどから情報収集し、SQLiteで管理。 |
 | [book-survey](book-survey/) | 書籍の評判を多角的に調査し、構造化されたMarkdownレポートを生成。ポジティブ・ネガティブ両面のレビュー収集、国立国会図書館APIで書影取得。 |
 | [oss-survey](oss-survey/) | OSS/ツールの概要調査を実施し、構造化されたMarkdownレポートを生成。基本情報、競合比較、日本語サポート状況の調査。 |
 | [skills-github-publisher](skills-github-publisher/) | Claude Code skillsをGitHubリポジトリに追加・公開。セキュリティチェック、README生成、git操作を自動化。 |
