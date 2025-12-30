@@ -10,15 +10,14 @@
 
 ## スキルの使い方
 
-各スキルのディレクトリをClaude Codeのスキルフォルダ（`~/.claude/skills/`）に配置してください。
+1. [リポジトリをzipでダウンロード](https://github.com/taktamur/claude-code-skills/archive/refs/heads/main.zip)
+2. zipファイルを展開
+3. 使いたいスキルのディレクトリを`~/.claude/skills/`にコピー
 
 ```bash
-cd ~/.claude/skills/
-git clone https://github.com/taktamur/claude-code-skills.git
-cp -r claude-code-skills/book-survey ./
+# 例: book-surveyスキルを使う場合
+cp -r claude-code-skills-main/book-survey ~/.claude/skills/
 ```
-
-または、個別のスキルディレクトリを直接コピーすることもできます。
 
 ## ライセンス
 
