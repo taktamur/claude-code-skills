@@ -12,5 +12,6 @@
 # 公開するスキル
 !/agent-skill-survey/
 !/book-survey/
+!/chrome-history/
 !/oss-survey/
 !/skills-github-publisher/
