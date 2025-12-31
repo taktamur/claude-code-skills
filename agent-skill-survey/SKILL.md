@@ -4,33 +4,35 @@ description: Agent Skillsの活用事例を様々なソース（Zenn、GitHub、
 approvedTools:
   - WebSearch:*
   - WebFetch:*
-  - Write:/Users/tak/tmp/*
+  - Write:~/tmp/*
   - Bash:sqlite3:*
   - Bash:./references/export_all.sh:*
 ---
 
 # Agent Skill Survey
 
-このスキルは、Agent Skillsの活用事例を調査・収集し、使用パターンを分析してまとめる。
+このスキルは、Agent Skills の活用事例を調査・収集し、使用パターンを分析してまとめる。
 
 ## 使用タイミング
 
 以下のような依頼があった場合に使用：
-- 「agent skillの活用事例を調べて」
-- 「agent skillの使い方を調査して」
-- 「agent skillsの使用例を探して」
-- 「どんなagent skillsが使われているか調べて」
-- 「agent skill事例を追加調査して」
-- 「agent skill事例を更新して」
-- 「agent skillのDBを更新して」
+
+- 「agent skill の活用事例を調べて」
+- 「agent skill の使い方を調査して」
+- 「agent skills の使用例を探して」
+- 「どんな agent skills が使われているか調べて」
+- 「agent skill 事例を追加調査して」
+- 「agent skill 事例を更新して」
+- 「agent skill の DB を更新して」
 
 ## 調査の進め方
 
 ### 1. 情報源の選択
 
-**検索対象期間**: 直近1ヶ月を重点的にターゲットとする（`after:YYYY-MM-DD`形式で日付フィルタを使用）
+**検索対象期間**: 直近 1 ヶ月を重点的にターゲットとする（`after:YYYY-MM-DD`形式で日付フィルタを使用）
 
 以下のソースから調査を行う：
+
 - **Zenn**: 日本語の技術記事
   - 例: `Claude agent skills after:2025-12-01 site:zenn.dev`
 - **Qiita**: 日本語の技術記事
@@ -41,23 +43,25 @@ approvedTools:
   - 例: `Claude agent skills after:2025-12-01 site:hatenablog.com`
 - **GitHub**:
   - リポジトリ検索、マーケットプレイス
-  - SKILL.mdファイルの検索
+  - SKILL.md ファイルの検索
   - 例: `agent skills Claude after:2025-12-01 site:github.com SKILL.md`
 - **Hacker News**: 技術的な議論とコメント
   - 例: `Claude agent skills after:2025-12-01 site:news.ycombinator.com`
 - **Dev.to**: 英語の技術記事
   - 例: `Claude agent skills after:2025-12-01 site:dev.to`
-- **公式ドキュメント**: Anthropic公式のサンプルとベストプラクティス
+- **公式ドキュメント**: Anthropic 公式のサンプルとベストプラクティス
 
-**除外**: Medium（WebFetchでエラーが出るため）、X/Twitter（WebFetchで内容取得不可）
+**除外**: Medium（WebFetch でエラーが出るため）、X/Twitter（WebFetch で内容取得不可）
 
 **日付フィルタの計算方法**:
-- 調査実行日から1ヶ月前の日付を計算（例: 2025-12-30なら `after:2025-12-01`）
+
+- 調査実行日から 1 ヶ月前の日付を計算（例: 2025-12-30 なら `after:2025-12-01`）
 - 検索クエリに必ず日付フィルタを含める
 
 ### 2. 情報の収集
 
 各記事から以下の情報を抽出：
+
 - **タイトル**: 記事のタイトル
 - **日付**: 公開日または更新日
 - **要約**: 主な内容、作成されたスキルの概要、使用パターン
@@ -65,7 +69,7 @@ approvedTools:
 
 ### 3. リファレンスの更新
 
-収集した情報は**SQLiteデータベース**に記録する（重複チェック・タグ検索が可能）。
+収集した情報は**SQLite データベース**に記録する（重複チェック・タグ検索が可能）。
 
 #### データベースへの追加
 
@@ -102,7 +106,7 @@ SELECT name FROM tags ORDER BY name;
 --         curated-list, enterprise, document-skills, git-workflow, open-standard
 ```
 
-#### Markdown出力
+#### Markdown 出力
 
 ```bash
 # all.md を再生成
@@ -113,10 +117,10 @@ SELECT name FROM tags ORDER BY name;
 
 awesome-claude-skills のようなキュレーションリポジトリから個別スキルを一括登録する場合は、ハイブリッド方式を使用する：
 
-1. **READMEからスキル情報を抽出**（Pythonスクリプト）
-2. **一時ファイルにSQL生成**（レビュー用）
-3. **内容確認後、DBに一括INSERT**
-4. **export_all.shでMarkdown再生成**
+1. **README からスキル情報を抽出**（Python スクリプト）
+2. **一時ファイルに SQL 生成**（レビュー用）
+3. **内容確認後、DB に一括 INSERT**
+4. **export_all.sh で Markdown 再生成**
 
 ```python
 # ~/tmp/extract_skills.py のテンプレート
@@ -132,6 +136,7 @@ SKILLS = [
 ```
 
 実行手順：
+
 ```bash
 # 1. スクリプト実行でSQL生成
 python3 ~/tmp/extract_skills.py
@@ -149,15 +154,16 @@ sqlite3 references/references.db < ~/tmp/awesome_skills_insert.sql
 ### 4. パターンの分析
 
 収集した事例から使用パターンを分類：
+
 - 情報検索・調査系
 - ドキュメント・ノート管理系
 - 専門的な提案・計画系
 - ユーティリティ系
 - 企業・チームでの導入事例
 
-### 5. all.mdの再生成
+### 5. all.md の再生成
 
-データベース更新後、Markdown出力を再生成：
+データベース更新後、Markdown 出力を再生成：
 
 ```bash
 ./references/export_all.sh
@@ -166,6 +172,7 @@ sqlite3 references/references.db < ~/tmp/awesome_skills_insert.sql
 ### 6. 結果のまとめ
 
 調査結果をユーザーに報告する際は：
+
 - 発見した活用事例の概要
 - 使用パターンの分類
 - 特に興味深い実装例
@@ -180,7 +187,7 @@ references/
 └── export_all.sh      # Markdown出力スクリプト
 ```
 
-### SQLiteスキーマ
+### SQLite スキーマ
 
 ```sql
 -- メインテーブル
@@ -202,9 +209,9 @@ CREATE TABLE ref_tags (
 );
 ```
 
-### GUIで確認
+### GUI で確認
 
-DB Browser for SQLiteで直接確認できる：
+DB Browser for SQLite で直接確認できる：
 
 ```bash
 open -a "/Applications/DB Browser for SQLite.app" references/references.db
@@ -235,7 +242,7 @@ SELECT title, surveyed_date FROM refs ORDER BY surveyed_date DESC LIMIT 10;
 ## 注意事項
 
 - 調査は薄く広く行い、詳細な実装には深入りしない
-- 各記事の要約は簡潔に（3-5行程度）
-- **新規追加時は必ずSQLiteに登録**（URLで自動重複チェック）
-- `export_all.sh`でMarkdownを再生成可能
+- 各記事の要約は簡潔に（3-5 行程度）
+- **新規追加時は必ず SQLite に登録**（URL で自動重複チェック）
+- `export_all.sh`で Markdown を再生成可能
 - ユーザーの要望に応じて、特定のソースやタグに絞った調査も可能
