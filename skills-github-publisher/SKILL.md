@@ -150,21 +150,24 @@ git push
 
 ### Step 8: リポジトリ URL の取得
 
-git remote からリポジトリ URL を取得：
+スクリプトを使用してリポジトリ URL を取得：
 
 ```bash
-# リモートURLを取得
-REPO_URL=$(git remote get-url origin)
+# スキルディレクトリのパスを取得
+SKILL_DIR="$HOME/.claude/skills/skills-github-publisher"
 
-# HTTPSフォーマットに変換（git@形式の場合）
-if [[ $REPO_URL == git@* ]]; then
-  REPO_URL=$(echo "$REPO_URL" | sed -e 's/:/\//' -e 's/git@/https:\/\//' -e 's/\.git$//')
-elif [[ $REPO_URL == *.git ]]; then
-  REPO_URL="${REPO_URL%.git}"
-fi
+# スクリプトを実行してHTTPS形式のURLを取得
+REPO_URL=$("$SKILL_DIR/scripts/get_repo_url.sh" ~/.claude/skills)
 ```
 
-リモートが設定されていない場合はエラーを報告してワークフローを中断。
+スクリプトの機能：
+
+- git remote から origin の URL を取得
+- SSH 形式 (`git@...`) を HTTPS 形式に自動変換
+- `.git` 拡張子を削除
+- リモートが設定されていない場合やGitリポジトリでない場合はエラーを返す
+
+エラーが発生した場合はワークフローを中断。
 
 ### Step 9: 完了報告
 
