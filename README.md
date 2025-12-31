@@ -15,13 +15,26 @@
 
 ## スキルの使い方
 
-1. [リポジトリをzipでダウンロード](https://github.com/taktamur/claude-code-skills/archive/refs/heads/main.zip)
-2. zipファイルを展開
-3. 使いたいスキルのディレクトリを`~/.claude/skills/`にコピー
+### 方法1: GitHubからダウンロード
+
+1. このリポジトリのページで「Code」ボタンをクリック
+2. 「Download ZIP」を選択してダウンロード
+3. zipファイルを展開
+4. 使いたいスキルのディレクトリを`~/.claude/skills/`にコピー
 
 ```bash
 # 例: book-surveyスキルを使う場合
 cp -r claude-code-skills-main/book-survey ~/.claude/skills/
+```
+
+### 方法2: git clone
+
+```bash
+# リポジトリをクローン
+git clone <このリポジトリのURL>
+
+# 使いたいスキルをコピー
+cp -r claude-code-skills/book-survey ~/.claude/skills/
 ```
 
 ## カスタマイズについて

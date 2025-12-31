@@ -34,5 +34,7 @@ book-surveyスキルを公開して
 ## リポジトリ設定
 
 - リポジトリパス: `~/.claude/skills/`
-- リモートリポジトリ: `https://github.com/taktamur/claude-code-skills`
+- リモートリポジトリ: git remoteから動的に取得
 - .gitignore方式: デフォルトですべて除外し、公開対象のみ許可
+
+**注**: リポジトリURLは実行時に`git remote get-url origin`で取得されます。
