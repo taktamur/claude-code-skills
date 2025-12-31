@@ -17,6 +17,7 @@
 | [oss-survey](oss-survey/) | OSS/ツールの概要調査を実施し、構造化されたMarkdownレポートを生成。基本情報、競合比較、日本語サポート状況の調査。 |
 | [scrapbox-monthly-page](scrapbox-monthly-page/) | Scrapbox用の月次ページを生成。指定年月の全日付と曜日をScrapboxリンク形式で出力、前後月へのナビゲーションリンクも含む。 |
 | [skills-github-publisher](skills-github-publisher/) | Claude Code skillsをGitHubリポジトリに追加・公開。セキュリティチェック、README生成、git操作を自動化。 |
+| [tampermonkey-list](tampermonkey-list/) | MacのChromeにインストールされているTampermonkey userscriptの一覧を取得・表示。メタデータ（名前、バージョン、作者、有効/無効状態）を確認可能。 |
 
 ## スキルの使い方
 
