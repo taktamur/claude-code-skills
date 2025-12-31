@@ -10,6 +10,7 @@
 |---------|------|
 | [agent-skill-survey](agent-skill-survey/) | Agent Skillsの活用事例を調査・収集し、使用パターンを分析。Zenn、GitHub、技術ブログなどから情報収集し、SQLiteで管理。 |
 | [book-survey](book-survey/) | 書籍の評判を多角的に調査し、構造化されたMarkdownレポートを生成。ポジティブ・ネガティブ両面のレビュー収集、国立国会図書館APIで書影取得。 |
+| [bot-diary](bot-diary/) | Obsidian Vaultにコンテンツを保存。YAMLフロントマター追加、タグ規則適用、Obsidian Publish用フォーマット整形を自動化。 |
 | [chrome-history](chrome-history/) | Google Chromeの閲覧履歴を包括的に取得・分析。TSV/CSV/JSON/Markdown形式でエクスポート、統計情報生成に対応。 |
 | [homebrew-cask-security](homebrew-cask-security/) | Homebrew caskの定義ファイルを取得・分析し、インストール前に悪意のあるコードや疑わしい設定がないかをセキュリティチェック。 |
 | [mgc-todo](mgc-todo/) | mgc (Microsoft Graph CLI) を使用してMicrosoft To Doタスクを管理。リスト/タスクの操作、カレンダー統合ワークフローを提供。 |

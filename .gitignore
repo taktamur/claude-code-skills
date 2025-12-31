@@ -12,6 +12,7 @@
 # 公開するスキル
 !/agent-skill-survey/
 !/book-survey/
+!/bot-diary/
 !/chrome-history/
 !/homebrew-cask-security/
 !/mgc-todo/
