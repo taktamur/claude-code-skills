@@ -12,6 +12,7 @@
 | [homebrew-cask-security](homebrew-cask-security/) | Homebrew caskの定義ファイルを取得・分析し、インストール前に悪意のあるコードや疑わしい設定がないかをセキュリティチェック。 |
 | [mgc-todo](mgc-todo/) | mgc (Microsoft Graph CLI) を使用してMicrosoft To Doタスクを管理。リスト/タスクの操作、カレンダー統合ワークフローを提供。 |
 | [oss-survey](oss-survey/) | OSS/ツールの概要調査を実施し、構造化されたMarkdownレポートを生成。基本情報、競合比較、日本語サポート状況の調査。 |
+| [scrapbox-monthly-page](scrapbox-monthly-page/) | Scrapbox用の月次ページを生成。指定年月の全日付と曜日をScrapboxリンク形式で出力、前後月へのナビゲーションリンクも含む。 |
 | [skills-github-publisher](skills-github-publisher/) | Claude Code skillsをGitHubリポジトリに追加・公開。セキュリティチェック、README生成、git操作を自動化。 |
 
 ## スキルの使い方
