@@ -1,25 +1,5 @@
-# デフォルトですべてのスキルを無視
-# 公開したいスキルは !<skill-name>/ で個別に許可する
-
-# トップレベルのディレクトリをすべて無視
-/*
-
-# 以下のファイルは許可
-!/.gitignore
-!/README.md
-!/LICENSE
-
 # OS generated files
 .DS_Store
 
-# 公開するスキル
-!/agent-skill-survey/
-!/book-survey/
-!/bot-diary/
-!/chrome-history/
-!/homebrew-cask-security/
-!/mgc-todo/
-!/oss-survey/
-!/scrapbox-monthly-page/
-!/skills-github-publisher/
-!/tampermonkey-list/
+# Claude Code project settings (local only)
+.claude/

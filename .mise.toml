@@ -1,0 +1,11 @@
+[tasks.setup]
+description = "Setup skills symlinks using stow"
+run = "stow -v -d ~/proj -t ~/.claude/skills claude-code-skills"
+
+[tasks.teardown]
+description = "Remove skills symlinks"
+run = "stow -v -D -d ~/proj -t ~/.claude/skills claude-code-skills"
+
+[tasks.restow]
+description = "Restow skills (remove and re-create symlinks)"
+run = "stow -v -R -d ~/proj -t ~/.claude/skills claude-code-skills"
