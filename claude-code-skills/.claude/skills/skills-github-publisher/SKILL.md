@@ -71,7 +71,7 @@ ls -la ~/.claude/skills/ | grep "^d"
 
 スキルが実体ディレクトリ（未公開）の場合、Stow パッケージにコピーする。
 
-コピー先は、`~/.claude/skills/` 配下にある既存シンボリックリンクのリンク先の親ディレクトリとする。コピー後、元の実体ディレクトリを削除し、`stow` を再適用してシンボリックリンクを作成する。
+移動先は、`~/.claude/skills/` 配下にある既存シンボリックリンクのリンク先の親ディレクトリとする。`mv` コマンドで移動し、`stow` を再適用してシンボリックリンクを作成する。
 
 既にシンボリックリンク（公開済み）の場合はこのステップをスキップする。
 
@@ -115,9 +115,9 @@ ls -la ~/.claude/skills/ | grep "^d"
 | [<スキル名>](claude-code-skills/.claude/skills/<スキル名>/) | <簡潔な説明> |
 ```
 
-### Step 7: git 操作（add, commit, push）
+### Step 7: git 操作（add, commit）
 
-変更対象ファイルを個別に指定してステージング、コミット、プッシュ：
+変更対象ファイルを個別に指定してステージング、コミット：
 
 ```bash
 # ステージング（個別ファイル指定）
@@ -140,27 +140,22 @@ feat: <スキル名>を追加
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 EOF
 )"
-
-# プッシュ
-git push
 ```
 
-### Step 8: リポジトリ URL の取得
+### Step 8: 完了報告とプッシュ確認
 
-`gh` コマンドでリポジトリ URL を取得：
+`gh` コマンドでリポジトリ URL を取得し、ユーザーに以下を報告：
 
 ```bash
 gh repo view --json url -q .url
 ```
 
-### Step 9: 完了報告
-
-ユーザーに以下を報告：
-
 - 公開チェック結果
 - 追加されたファイル一覧
 - コミットハッシュ
-- スキルの公開 URL: `<gh で取得した URL>/tree/main/claude-code-skills/.claude/skills/<スキル名>`
+- スキルの公開 URL（プッシュ後）: `<gh で取得した URL>/tree/main/claude-code-skills/.claude/skills/<スキル名>`
+
+報告後、**ユーザーの確認を待ってから** `git push` を実行する。自動的にプッシュしない。
 
 ## Notes
 
@@ -168,3 +163,4 @@ gh repo view --json url -q .url
 - README.md は簡潔に。詳細は SKILL.md に記載されているため重複を避ける
 - git 操作の前に必ず `git status` で確認
 - コミットメッセージは統一された形式を使用
+- **`git add -f` は使用禁止**。`.gitignore` でブロックされる場合は `.gitignore` を修正して対応すること
