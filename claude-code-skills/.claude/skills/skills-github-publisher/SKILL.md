@@ -1,36 +1,34 @@
 ---
 name: skills-github-publisher
-description: Claude Code skillsをGitHub公開リポジトリに追加するスキル。スキルの内容を確認して公開可否をチェックし、.gitignoreへの追加、README.md作成、git commit/pushまでを自動化する。ユーザーが「skillをgit管理にして」「skillを公開して」などと依頼した際に使用する。
+description: Claude Code skillsをGitHub公開リポジトリに追加するスキル。スキルの内容を確認して公開可否をチェックし、README.md作成、git commit/pushまでを自動化する。ユーザーが「skillをgit管理にして」「skillを公開して」などと依頼した際に使用する。
 ---
 
 # Skills GitHub Publisher
 
 ## Overview
 
-Claude Code skills を既存の GitHub リポジトリに追加し、公開するワークフローを提供する。スキルの内容確認、セキュリティチェック、README 作成、git 操作を順次実行する。
+Claude Code skills を GNU Stow で管理されている GitHub リポジトリに追加し、公開するワークフローを提供する。スキルの内容確認、セキュリティチェック、README 作成、git 操作を順次実行する。
 
-リポジトリ設定：
-
-- **リポジトリパス**: `~/.claude/skills/`
-- **リモートリポジトリ**: git remote から動的に取得（`git remote get-url origin`）
-- **.gitignore 方式**: デフォルトですべてのスキルを除外し、公開対象のみを`!/<スキル名>/`で許可
+スキルは GNU Stow により `~/.claude/skills/` にシンボリックリンクとして配置されている。シンボリックリンクを辿ることで、Stow パッケージ（git リポジトリ）内のファイル実体にアクセスできる。
 
 ## Workflow
 
-### Step 1: スキル名の確認
+### Step 1: スキル名の確認と Stow チェック
 
 ユーザーからスキル名を受け取る。スキル名が明示されていない場合は確認する。
 
-### Step 2: スキル内容の確認
-
-スキルディレクトリ配下のすべてのファイルを確認：
+次に、スキルが Stow パッケージ内に存在するかを確認：
 
 ```bash
-ls -la ~/.claude/skills/<スキル名>/
-find ~/.claude/skills/<スキル名> -type f | sort
+ls -la ~/.claude/skills/<スキル名>
 ```
 
-主要ファイルを読み込み：
+- **シンボリックリンクの場合**: Stow 管理下にある。リンク先を辿ればリポジトリ内のファイル実体にアクセスできる
+- **通常ディレクトリの場合**: ローカルスキル。ユーザーに Stow パッケージへの移動を提案し、移動後に `stow` を再適用する
+
+### Step 2: スキル内容の確認
+
+スキルディレクトリ配下のすべてのファイルを確認し、主要ファイルを読み込む：
 
 - `SKILL.md`: スキルの説明とワークフロー
 - `references/`: リファレンスファイル（存在する場合）
@@ -64,20 +62,9 @@ find ~/.claude/skills/<スキル名> -type f | sort
 
 公開不可の場合はワークフローを中断。
 
-### Step 4: .gitignore への追加
+### Step 4: スキル README.md の作成
 
-`~/.claude/skills/.gitignore`に公開対象のスキルを追加：
-
-```gitignore
-# 公開するスキル
-!/book-survey/
-!/oss-survey/
-!/<新しいスキル名>/
-```
-
-### Step 5: スキル README.md の作成
-
-`~/.claude/skills/<スキル名>/README.md`を作成。コンパクトな形式で以下を含める：
+スキルディレクトリ内に `README.md` を作成。コンパクトな形式で以下を含める：
 
 ```markdown
 # <スキル名>
@@ -107,25 +94,22 @@ find ~/.claude/skills/<スキル名> -type f | sort
 
 **重要**: 詳細は省き、コンパクトにまとめる。
 
-### Step 6: ルート README.md の更新
+### Step 5: ルート README.md の更新
 
-`~/.claude/skills/README.md`のテーブルに行を追加：
+リポジトリルートの `README.md` にあるテーブルに行を追加する。既存テーブルのリンク形式に合わせる：
 
 ```markdown
-| スキル名                              | 説明                        |
-| ------------------------------------- | --------------------------- |
-| [book-survey](book-survey/)           | 書籍の評判を多角的に調査... |
-| [oss-survey](oss-survey/)             | OSS/ツールの概要調査...     |
-| [<新しいスキル名>](<新しいスキル名>/) | <簡潔な説明>                |
+| [<スキル名>](claude-code-skills/.claude/skills/<スキル名>/) | <簡潔な説明> |
 ```
 
-### Step 7: git 操作（add, commit, push）
+### Step 6: git 操作（add, commit, push）
 
-変更をステージング、コミット、プッシュ：
+変更対象ファイルを個別に指定してステージング、コミット、プッシュ：
 
 ```bash
-# ステージング前に確認
-git add .
+# ステージング（個別ファイル指定）
+git add claude-code-skills/.claude/skills/<スキル名>/
+git add README.md
 git status --short
 
 # コミット
@@ -140,7 +124,7 @@ feat: <スキル名>を追加
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 EOF
 )"
 
@@ -148,40 +132,26 @@ EOF
 git push
 ```
 
-### Step 8: リポジトリ URL の取得
+### Step 7: リポジトリ URL の取得
 
-スクリプトを使用してリポジトリ URL を取得：
+`gh` コマンドでリポジトリ URL を取得：
 
 ```bash
-# スキルディレクトリのパスを取得
-SKILL_DIR="$HOME/.claude/skills/skills-github-publisher"
-
-# スクリプトを実行してHTTPS形式のURLを取得
-REPO_URL=$("$SKILL_DIR/scripts/get_repo_url.sh" ~/.claude/skills)
+gh repo view --json url -q .url
 ```
 
-スクリプトの機能：
-
-- git remote から origin の URL を取得
-- SSH 形式 (`git@...`) を HTTPS 形式に自動変換
-- `.git` 拡張子を削除
-- リモートが設定されていない場合やGitリポジトリでない場合はエラーを返す
-
-エラーが発生した場合はワークフローを中断。
-
-### Step 9: 完了報告
+### Step 8: 完了報告
 
 ユーザーに以下を報告：
 
 - 公開チェック結果
 - 追加されたファイル一覧
 - コミットハッシュ
-- リポジトリ URL（Step 8 で取得した動的 URL）
-- スキルの公開 URL: `${REPO_URL}/tree/main/<スキル名>`
+- スキルの公開 URL: `<gh で取得した URL>/tree/main/claude-code-skills/.claude/skills/<スキル名>`
 
 ## Notes
 
 - セキュリティチェックは必須。疑わしい内容がある場合は公開を中断
 - README.md は簡潔に。詳細は SKILL.md に記載されているため重複を避ける
-- git 操作の前に必ず`git status`で確認
+- git 操作の前に必ず `git status` で確認
 - コミットメッセージは統一された形式を使用
