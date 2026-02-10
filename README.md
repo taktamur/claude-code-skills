@@ -21,36 +21,12 @@
 
 ## スキルの使い方
 
-### 方法1: GNU Stow（推奨）
-
 ```bash
 # リポジトリをクローン
 git clone <このリポジトリのURL> ~/proj/claude-code-skills
 
 # シンボリックリンクを作成
-cd ~/proj/claude-code-skills && stow -v -t ~ claude-code-skills
-```
-
-### 方法2: GitHubからダウンロード
-
-1. このリポジトリのページで「Code」ボタンをクリック
-2. 「Download ZIP」を選択してダウンロード
-3. zipファイルを展開
-4. 使いたいスキルのディレクトリを`~/.claude/skills/`にコピー
-
-```bash
-# 例: book-surveyスキルを使う場合
-cp -r claude-code-skills-main/claude-code-skills/.claude/skills/book-survey ~/.claude/skills/
-```
-
-### 方法3: git clone
-
-```bash
-# リポジトリをクローン
-git clone <このリポジトリのURL>
-
-# 使いたいスキルをコピー
-cp -r claude-code-skills/claude-code-skills/.claude/skills/book-survey ~/.claude/skills/
+stow -v -t ~ claude-code-skills
 ```
 
 ## カスタマイズについて
