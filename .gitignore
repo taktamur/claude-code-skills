@@ -9,6 +9,9 @@
 !/README.md
 !/LICENSE
 
+# OS generated files
+.DS_Store
+
 # 公開するスキル
 !/agent-skill-survey/
 !/book-survey/

@@ -261,6 +261,58 @@ TODOとカレンダーイベントを組み合わせる場合：
    ```
 4. **時間的制約がある場合はリマインダーを設定**
 
+### ワークフロー5: リスト全体のチェックをクリア
+
+出勤リストなど、繰り返し使用するチェックリストを再利用する場合：
+
+**使用例:** 毎日使う出勤リスト、週次レビューリスト、旅行準備リストなど
+
+**手順:**
+
+1. **リスト名からリストIDを取得:**
+   ```bash
+   # リスト一覧を表示してIDを確認
+   python scripts/mgc_todo_helper.py list-lists
+   ```
+
+2. **リスト内の全タスクを未完了状態に戻す:**
+   ```bash
+   # リストIDを指定して全タスクのチェックをクリア
+   python scripts/mgc_todo_helper.py list-tasks --list-id "<list-id>" | \
+     jq -r '.value[].id' | \
+     while read task_id; do
+       python scripts/mgc_todo_helper.py update-task --task-id "$task_id" --status notStarted
+       echo "✓ Updated: $task_id"
+     done
+   ```
+
+3. **完了状態のタスクのみをクリアする場合:**
+   ```bash
+   # 完了済みタスクのみを未完了に戻す
+   python scripts/mgc_todo_helper.py list-tasks --list-id "<list-id>" --status completed | \
+     jq -r '.value[].id' | \
+     while read task_id; do
+       python scripts/mgc_todo_helper.py update-task --task-id "$task_id" --status notStarted
+     done
+   ```
+
+**実用例:**
+
+```bash
+# 「出勤リスト 2025」のチェックを全てクリア
+LIST_ID="AQMkADAwATYwMAItODQ2Zi1kZAA1OC0wMAItMDAKAC4AAAMs14Xqqux2Q4pIBDgCp60JAQAWnHKFZriMTJXBoTlBdANNAAfeceN0AAAA"
+
+python scripts/mgc_todo_helper.py list-tasks --list-id "$LIST_ID" | \
+  jq -r '.value[].id' | \
+  while read task_id; do
+    python scripts/mgc_todo_helper.py update-task --task-id "$task_id" --status notStarted
+  done
+```
+
+**注意事項:**
+- この操作はリスト内の全タスクを未完了にするため、意図しないタスクまで変更しないよう、事前にリストIDが正しいことを確認すること
+- 大量のタスクがある場合は、APIレート制限に注意
+
 ## ヘルパースクリプトリファレンス
 
 `scripts/mgc_todo_helper.py` スクリプトは一般的な操作の便利なラッパーを提供する：
