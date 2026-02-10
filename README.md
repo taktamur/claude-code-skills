@@ -12,6 +12,7 @@
 | [book-survey](claude-code-skills/.claude/skills/book-survey/) | 書籍の評判を多角的に調査し、構造化されたMarkdownレポートを生成。ポジティブ・ネガティブ両面のレビュー収集、国立国会図書館APIで書影取得。 |
 | [bot-diary](claude-code-skills/.claude/skills/bot-diary/) | Obsidian Vaultにコンテンツを保存。YAMLフロントマター追加、タグ規則適用、Obsidian Publish用フォーマット整形を自動化。 |
 | [chrome-history](claude-code-skills/.claude/skills/chrome-history/) | Google Chromeの閲覧履歴を包括的に取得・分析。TSV/CSV/JSON/Markdown形式でエクスポート、統計情報生成に対応。 |
+| [fallout-nv-mod-search](claude-code-skills/.claude/skills/fallout-nv-mod-search/) | Fallout New VegasのModをNexus Modsと日本語情報源から検索・分析。Playwright MCPとWebSearchを統合した総合評価を提供。 |
 | [homebrew-cask-security](claude-code-skills/.claude/skills/homebrew-cask-security/) | Homebrew caskの定義ファイルを取得・分析し、インストール前に悪意のあるコードや疑わしい設定がないかをセキュリティチェック。 |
 | [mgc-todo](claude-code-skills/.claude/skills/mgc-todo/) | mgc (Microsoft Graph CLI) を使用してMicrosoft To Doタスクを管理。リスト/タスクの操作、カレンダー統合ワークフローを提供。 |
 | [oss-survey](claude-code-skills/.claude/skills/oss-survey/) | OSS/ツールの概要調査を実施し、構造化されたMarkdownレポートを生成。基本情報、競合比較、日本語サポート状況の調査。 |
