@@ -22,11 +22,12 @@ book-surveyスキルを公開して
 
 ## ワークフロー
 
-1. スキル名の確認とStowチェック
+1. スキル名の確認とStowチェック（未指定時は未公開スキル一覧から選択）
 2. スキル内容の確認（SKILL.md、referencesなど）
 3. 公開チェック（機密情報、個人情報がないか）
-4. スキルREADME.mdの作成
-5. ルートREADME.mdのテーブル更新
-6. git add, commit, push
-7. リポジトリURL取得（`gh repo view`）
-8. 完了報告
+4. Stowパッケージへのコピー（未公開スキルの場合）
+5. スキルREADME.mdの作成
+6. ルートREADME.mdのテーブル更新
+7. git add, commit, push
+8. リポジトリURL取得（`gh repo view`）
+9. 完了報告
